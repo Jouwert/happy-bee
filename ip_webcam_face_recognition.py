@@ -97,6 +97,10 @@ while True:
 		cv2.putText(frame, name, (left + 6, bottom - 6), font, 1.0, (255,255,255), 1)
 
 	counter += 1
+	
+        # Resize image
+        cv2.namedWindow("Video",cv2.WINDOW_NORMAL)
+        cv2.resizeWindow("Video", 600,320)
 
 	# Displaying Video
 	cv2.imshow("Video", frame)
