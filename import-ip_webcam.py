@@ -12,19 +12,18 @@ url='http://192.168.178.11:8080/shot.jpg'
 while True:
     # Use urllib to get the image from the IP camera
     imgResp = urllib.request.urlopen(url) # was urllib.urlopen for Python2
-	
-    # Resize image attempt
-    cv2.namedWindow('image',cv2.WINDOW_NORMAL)
-    cv2.resizeWindow('image', 600,320)
 
     # Numpy to convert into a array
     imgNp = np.array(bytearray(imgResp.read()),dtype=np.uint8)
     
     # Finally decode the array to OpenCV usable format ;) 
     img = cv2.imdecode(imgNp,-1)
+
+    # Resize image attempt
+    cv2.namedWindow('IPWebcam',cv2.WINDOW_NORMAL)
+    cv2.resizeWindow('IPWebcam', 600,320)
 	
-	
-	# put the image on screen
+    # put the image on screen
     cv2.imshow('IPWebcam',img)
 
     #To give the processor some less stress
