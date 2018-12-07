@@ -19,7 +19,7 @@ while True:
     # Finally decode the array to OpenCV usable format ;) 
     img = cv2.imdecode(imgNp,-1)
 
-    # Resize image attempt
+    # Resize image
     cv2.namedWindow('IPWebcam',cv2.WINDOW_NORMAL)
     cv2.resizeWindow('IPWebcam', 600,320)
 	
