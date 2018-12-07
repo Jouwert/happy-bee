@@ -98,9 +98,9 @@ while True:
 
 	counter += 1
 	
-        # Resize image
-        cv2.namedWindow("Video",cv2.WINDOW_NORMAL)
-        cv2.resizeWindow("Video", 600,320)
+	# Resize image
+	cv2.namedWindow("Video",cv2.WINDOW_NORMAL)
+	cv2.resizeWindow("Video", 600,320)
 
 	# Displaying Video
 	cv2.imshow("Video", frame)
