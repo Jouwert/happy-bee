@@ -1,6 +1,6 @@
 # Using Android IP Webcam video .jpg stream (tested) automated translation from 2to3 in Python3 OpenCV4
 
-import urllib.request, urllib.parse, urllib.errorimport cv2 # was import urllib for Python2
+import urllib.request, urllib.parse, urllib.erro # was import urllib for Python2
 import cv2
 import numpy as np
 import time
