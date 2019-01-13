@@ -2,6 +2,10 @@
 # Licensed under the terms of the GPLv3
 # Copyright 2010 kang@insecure.ws
 # See http://www.gnu.org/licenses/gpl-3.0.txt or the LICENSE file
+# get some packages to make it work:
+# sudo apt-get install libgtk-3-dev # = gtk
+# sudo apt-get install python-gi python3-gi # = to make gtk work for python 3?
+
 __version__='1.0'
 __author__='kang'
 
@@ -11,7 +15,7 @@ from alsaaudio import *
 import os
 import pygame
 from pygame import locals
-import threading, thread, sys, Queue, signal
+import threading, _thread, sys, queue, signal
 
 try:
 	import pygtk
@@ -132,7 +136,7 @@ class PPM:
 		gen.amplitude = int(self.builder.get_object("entry1").get_text())
 		gen.generate()
 		q.put_nowait(gen.signal)
-		print "New amplitude set to ", gen.amplitude
+		print("New amplitude set to ", gen.amplitude)
 
 	def about(self, widget):
 		about = self.builder.get_object("aboutdialog1")
@@ -140,7 +144,7 @@ class PPM:
 		about.hide()
 
 	def quit(self, widget, event=None):
-		print "Quitting"
+		print("Quitting")
 		q.put_nowait(1)
 		q1.put_nowait(1)
 		gtk.main_quit(widget)
@@ -170,9 +174,9 @@ class Joystick(threading.Thread):
 		try:
 			j = pygame.joystick.Joystick(0)
 			j.init()
-			print "I decided to enable your first joystick:", j.get_name()
+			print("I decided to enable your first joystick:", j.get_name())
 		except pygame.error:
-			print "No joystick found, plug one and restart this program if you want :p"
+			print("No joystick found, plug one and restart this program if you want :p")
 
 	def run(self):
 		while 1:
@@ -180,7 +184,7 @@ class Joystick(threading.Thread):
 				item = self.q1.get_nowait()
 				if type(item) is int:
 					break
-			except Queue.Empty:
+			except queue.Empty:
 				pass
 			for e in pygame.event.get():
 				if e.type == pygame.locals.JOYAXISMOTION:
@@ -200,7 +204,7 @@ class Signal(threading.Thread):
 	card.setrate(GenSignal.samplerate)
 	card.setformat(PCM_FORMAT_S16_LE)
 	card.setperiodsize(int(GenSignal.samplerate * GenSignal.duration))
-	print "Sound card initialized"
+	print("Sound card initialized")
 
 	def __init__(self, q):
 		self.queue_in = q
@@ -216,11 +220,11 @@ class Signal(threading.Thread):
 					self.signal = item
 				else:
 					break
-			except Queue.Empty:
+			except queue.Empty:
 				pass
 			self.card.write(self.signal)
-q = Queue.Queue(0)
-q1 = Queue.Queue(0)
+q = queue.Queue(0)
+q1 = queue.Queue(0)
 s = Signal(q)
 j = Joystick(q, q)
 gen = GenSignal()
