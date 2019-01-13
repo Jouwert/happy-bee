@@ -230,10 +230,10 @@ j = Joystick(q, q)
 gen = GenSignal()
 
 def app_terminated(arg1=1, arg2=2, arg3=3):
-        app_terminate = True
+	app_terminate = True
 	q.put_nowait(1)
 	q1.put_nowait(1)
-        sys.exit()
+	sys.exit()
 
 if __name__ == "__main__":
 	signal.signal(signal.SIGQUIT, app_terminated)
